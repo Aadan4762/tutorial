@@ -20,31 +20,55 @@ public class MicroserviceController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMicroservice(@RequestBody MicroserviceRequest microserviceRequest){
-        microserviceService.createMicroservice(microserviceRequest);
-
+    public String createMicroservice(@RequestBody MicroserviceRequest microserviceRequest) {
+        try {
+            microserviceService.createMicroservice(microserviceRequest);
+            return "Microservice created successfully";
+        } catch (Exception e) {
+            return "Failed to create microservice: " + e.getMessage();
+        }
     }
+
+
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<MicroserviceResponse> getAllMicroservices(){
         return microserviceService.getAllMicroservice();
+
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MicroserviceResponse getMicroserviceById(@PathVariable int id) {
-        return microserviceService.getMicroserviceById(id);
+    public Object getMicroserviceById(@PathVariable int id) {
+        MicroserviceResponse microservice = microserviceService.getMicroserviceById(id);
+
+        if (microservice != null) {
+            return microservice;
+        } else {
+            return "Microservice not found";
+        }
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateMicroservice(@PathVariable int id, @RequestBody MicroserviceRequest microserviceRequest) {
-        microserviceService.updateMicroservice(id, microserviceRequest);
-    }
+    public String updateMicroservice(@PathVariable int id, @RequestBody MicroserviceRequest microserviceRequest) {
+        boolean isUpdated = microserviceService.updateMicroservice(id, microserviceRequest);
 
+        if (isUpdated) {
+            return "Microservice updated successfully";
+        } else {
+            return "Microservice could not be updated";
+        }
+    }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMicroservice(@PathVariable int id) {
-        microserviceService.deleteMicroservice(id);
+    public String deleteMicroservice(@PathVariable int id) {
+        boolean isDeleted = microserviceService.deleteMicroservice(id);
+
+        if (isDeleted) {
+            return "Microservice deleted successfully";
+        } else {
+            return "Microservice could not be deleted";
+        }
     }
 }

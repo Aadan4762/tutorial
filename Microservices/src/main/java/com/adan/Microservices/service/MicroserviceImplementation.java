@@ -51,7 +51,7 @@ public class MicroserviceImplementation implements MicroserviceService {
     }
 
     @Override
-    public void updateMicroservice(int id, MicroserviceRequest microserviceRequest) {
+    public boolean updateMicroservice(int id, MicroserviceRequest microserviceRequest) {
         Optional<Microservice> existingMicroserviceOptional = microserviceRepository.findById(id);
 
         existingMicroserviceOptional.ifPresent(existingMicroservice -> {
@@ -61,15 +61,17 @@ public class MicroserviceImplementation implements MicroserviceService {
             microserviceRepository.save(existingMicroservice);
             log.info("Microservice {} is updated", existingMicroservice.getId());
         });
+        return false;
     }
 
     @Override
-    public void deleteMicroservice(int id) {
+    public boolean deleteMicroservice(int id) {
         Optional<Microservice> microserviceOptional = microserviceRepository.findById(id);
 
         microserviceOptional.ifPresent(microservice -> {
             microserviceRepository.delete(microservice);
             log.info("Microservice {} is deleted", microservice.getId());
         });
+        return false;
     }
 }

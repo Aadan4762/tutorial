@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface MicroserviceService {
 
-    public void createMicroservice(MicroserviceRequest microserviceRequest);
-    public List<MicroserviceResponse> getAllMicroservice();
+    void createMicroservice(MicroserviceRequest microserviceRequest);
+    List<MicroserviceResponse> getAllMicroservice();
     MicroserviceResponse getMicroserviceById(int id);
-    void updateMicroservice(int id, MicroserviceRequest microserviceRequest);
-    void deleteMicroservice(int id);
+    boolean updateMicroservice(int id, MicroserviceRequest microserviceRequest);
+    boolean deleteMicroservice(int id);
 
 
 }
