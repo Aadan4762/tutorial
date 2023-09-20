@@ -9,6 +9,9 @@ public interface MicroserviceService {
 
     public void createMicroservice(MicroserviceRequest microserviceRequest);
     public List<MicroserviceResponse> getAllMicroservice();
+    MicroserviceResponse getMicroserviceById(int id);
+    void updateMicroservice(int id, MicroserviceRequest microserviceRequest);
+    void deleteMicroservice(int id);
 
 
 }
