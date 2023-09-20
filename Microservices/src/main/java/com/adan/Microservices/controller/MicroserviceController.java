@@ -26,8 +26,25 @@ public class MicroserviceController {
     }
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-
     public List<MicroserviceResponse> getAllMicroservices(){
         return microserviceService.getAllMicroservice();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public MicroserviceResponse getMicroserviceById(@PathVariable int id) {
+        return microserviceService.getMicroserviceById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateMicroservice(@PathVariable int id, @RequestBody MicroserviceRequest microserviceRequest) {
+        microserviceService.updateMicroservice(id, microserviceRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMicroservice(@PathVariable int id) {
+        microserviceService.deleteMicroservice(id);
     }
 }
