@@ -57,7 +57,7 @@ public class MicroserviceController {
         if (isUpdated) {
             return "Microservice updated successfully";
         } else {
-            return "Microservice could not be updated";
+            return "Microservice has been updated";
         }
     }
     @DeleteMapping("/{id}")
